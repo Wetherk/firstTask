@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Add/Remove</title>
+  </head>
+  <body>
+    <div class="header">
+      <h1>List</h1>
+    </div>
+    <div class="input_container">
+      <input
+        id="name_input"
+        type="text"
+        placeholder="Your Name Please"
+        value="John"
+      />
+      <input
+        id="surname_input"
+        type="text"
+        placeholder="Your Surname"
+        value="Doe"
+      />
+      <input
+        id="date_input"
+        type="date"
+        placeholder="Your Date of Birth"
+        value="2021-03-16"
+      />
+      <input
+        id="weight_input"
+        type="number"
+        placeholder="Your Weight"
+        value="73"
+      />
+      <button id="add_btn" class="add_btn">Add</button>
+    </div>
+    <div class="table_container">
+      <h2>Added People:</h2>
+      <table id="info_table">
+        <tr>
+          <th>
+            FirstName
+            <button id="name_sort" class="sort_btn">Sort</button>
+          </th>
+          <th>
+            LastName
+            <button id="surname_sort" class="sort_btn">Sort</button>
+          </th>
+          <th>
+            Date of birth
+            <button id="date_sort" class="sort_btn">Sort</button>
+          </th>
+          <th>
+            Weight
+            <button id="weight_sort" class="sort_btn">Sort</button>
+          </th>
+        </tr>
+      </table>
+    </div>
+    <script src="/script.js"></script>
+  </body>
+</html>

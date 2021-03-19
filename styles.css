@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* text style */
+h1,
+h2 {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* input field style */
+.input_container {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  margin: 10px;
+}
+.add_btn {
+  width: 70px;
+  height: 30px;
+  align-self: center;
+}
+
+/* table */
+th {
+  padding: 20px;
+}
+table {
+  display: flex;
+  justify-content: center;
+}
+tr {
+  text-align: center;
+}
+
+.delete_btn {
+  padding: 5px 10px;
+  font-size: 15px;
+}
