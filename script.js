@@ -11,17 +11,17 @@ let sortStatus = 0;
 
 // functions
 function addInfoToObj() {
-	const nameInput = document.getElementById("name_input");
-	const surNameInput = document.getElementById("surname_input");
-	const dateInput = document.getElementById("date_input");
-	const weightInput = document.getElementById("weight_input");
+	const nameInput = document.getElementById("name_input").value;
+	const surNameInput = document.getElementById("surname_input").value;
+	const dateInput = document.getElementById("date_input").value;
+	const weightInput = document.getElementById("weight_input").value;
 	let personObj = {};
 
 	if (nameInput && surNameInput && dateInput && weightInput) {
-		personObj.name = nameInput.value;
-		personObj.surname = surNameInput.value;
-		personObj.dateofbirth = dateInput.value;
-		personObj.weight = weightInput.value;
+		personObj.name = nameInput;
+		personObj.surname = surNameInput;
+		personObj.dateofbirth = dateInput;
+		personObj.weight = weightInput;
 
 		return personObj;
 	}
@@ -110,7 +110,7 @@ function localStorageGet() {
 }
 
 // Core code
-if (localStorage.length > 0) {
+if (localStorage.length > 0 && personArr.length === 0) {
 	personArr = [...localStorageGet()];
 	defaultArr = [...personArr];
 	tableCreate(personArr);
@@ -120,15 +120,15 @@ addBtn.addEventListener("click", () => {
 	// Check if input field is empty
 	if (addInfoToObj()) {
 		personArr.push(addInfoToObj());
-	}
-	if (personArr.length > 0) {
-		if (personArr.length > 1) deleteTable(personArr.length - 1);
-		check(personArr);
-		defaultArr = [...personArr];
-		localStorage.clear();
-		localStorageAdd(personArr);
 		if (personArr.length > 0) {
-			tableCreate(personArr);
+			if (personArr.length > 1) deleteTable(personArr.length - 1);
+			check(personArr);
+			defaultArr = [...personArr];
+			localStorage.clear();
+			localStorageAdd(personArr);
+			if (personArr.length > 0) {
+				tableCreate(personArr);
+			}
 		}
 	}
 });
