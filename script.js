@@ -1,9 +1,5 @@
 const addBtn = document.getElementById("add_btn");
-const sortByNameBtn = document.getElementById("name_sort");
-const sortBySurNameBtn = document.getElementById("surname_sort");
-const sortByDateBtn = document.getElementById("date_sort");
-const sortByWeightBtn = document.getElementById("weight_sort");
-const table = document.getElementById("info_table");
+const form = document.getElementById("form");
 let personArr = [];
 let defaultArr = [];
 let sortPropCheck = 0;
@@ -29,8 +25,91 @@ function addInfoToObj() {
 }
 
 function tableCreate(arr) {
+	// Create Header
+	let header = document.createElement("h2");
+	let headerText = document.createTextNode("Added People:");
+	let tableBox = document.getElementById("header_div");
+	let tableRow = document.createElement("tr");
+
+	header.setAttribute("id", "table_header");
+	header.appendChild(headerText);
+	tableBox.appendChild(header);
+
+	// Create Table
+	let tableCell1 = document.createElement("th");
+	let tableCell2 = document.createElement("th");
+	let tableCell3 = document.createElement("th");
+	let tableCell4 = document.createElement("th");
+
+	let infoBox = document.getElementById("info_table");
+
+	let nameSortBtn = document.createElement("button");
+	let surNameSortBtn = document.createElement("button");
+	let dateSortBtn = document.createElement("button");
+	let weightSortBtn = document.createElement("button");
+
+	let text1 = document.createTextNode("FirstName");
+	let text2 = document.createTextNode("LastName");
+	let text3 = document.createTextNode("DateOfBirth");
+	let text4 = document.createTextNode("Weight");
+
+	nameSortBtn.innerHTML = "Sort";
+	nameSortBtn.classList.add("sort_btn");
+	tableCell1.appendChild(nameSortBtn);
+
+	surNameSortBtn.innerHTML = "Sort";
+	surNameSortBtn.classList.add("sort_btn");
+	tableCell2.appendChild(surNameSortBtn);
+
+	dateSortBtn.innerHTML = "Sort";
+	dateSortBtn.classList.add("sort_btn");
+	tableCell3.appendChild(dateSortBtn);
+
+	weightSortBtn.innerHTML = "Sort";
+	weightSortBtn.classList.add("sort_btn");
+	tableCell4.appendChild(weightSortBtn);
+
+	tableCell1.appendChild(text1);
+	tableCell2.appendChild(text2);
+	tableCell3.appendChild(text3);
+	tableCell4.appendChild(text4);
+
+	tableRow.appendChild(tableCell1);
+	tableRow.appendChild(tableCell2);
+	tableRow.appendChild(tableCell3);
+	tableRow.appendChild(tableCell4);
+
+	infoBox.appendChild(tableRow);
+
+	nameSortBtn.addEventListener("click", () => {
+		if (personArr.length > 1) {
+			deleteTable(personArr.length);
+			tableCreate(sortArr(personArr, "name"));
+		}
+	});
+
+	surNameSortBtn.addEventListener("click", () => {
+		if (personArr.length > 1) {
+			deleteTable(personArr.length);
+			tableCreate(sortArr(personArr, "surname"));
+		}
+	});
+
+	dateSortBtn.addEventListener("click", () => {
+		if (personArr.length > 1) {
+			deleteTable(personArr.length);
+			tableCreate(sortArr(personArr, "dateofbirth"));
+		}
+	});
+
+	weightSortBtn.addEventListener("click", () => {
+		if (personArr.length > 1) {
+			deleteTable(personArr.length);
+			tableCreate(sortArr(personArr, "weight"));
+		}
+	});
 	for (let i = 0; i < arr.length; i++) {
-		let row = table.insertRow(i + 1);
+		let row = infoBox.insertRow(i + 1);
 		let cell1 = row.insertCell(0);
 		let cell2 = row.insertCell(1);
 		let cell3 = row.insertCell(2);
@@ -43,12 +122,16 @@ function tableCreate(arr) {
 		let btn = document.createElement("button");
 		btn.innerHTML = "x";
 		btn.classList.add("delete_btn");
-		btn.addEventListener("click", () => deletingRow(btn));
+		btn.addEventListener("click", () => {
+			deletingRow(btn);
+			if (personArr.length === 0) deleteTable(0);
+		});
 		row.appendChild(btn);
 	}
 }
 
 function deletingRow(r) {
+	const table = document.getElementById("info_table");
 	let i = r.parentNode.rowIndex;
 	table.deleteRow(i);
 	// personArr = personArr.reverse();
@@ -60,9 +143,13 @@ function deletingRow(r) {
 }
 
 function deleteTable(length) {
-	for (let i = length; i > 0; i--) {
+	const table = document.getElementById("info_table");
+	const tableHeader = document.getElementById("table_header");
+
+	for (let i = length; i >= 0; i--) {
 		table.deleteRow(i);
 	}
+	tableHeader.remove();
 }
 
 function check(arr) {
@@ -76,6 +163,12 @@ function sortArr(arr, prop) {
 	if (prop != sortPropCheck) sortStatus = 0;
 
 	if (arr.length > 1 && sortStatus != "sorted1" && sortStatus != "sorted2") {
+		if (prop === "weight") {
+			arr.sort((a, b) => (parseInt(a[prop]) > parseInt(b[prop]) ? 1 : -1));
+			sortStatus = "sorted1";
+			sortPropCheck = prop;
+			return arr;
+		}
 		arr.sort((a, b) => (a[prop] > b[prop] ? 1 : -1));
 		sortStatus = "sorted1";
 		sortPropCheck = prop;
@@ -116,7 +209,7 @@ if (localStorage.length > 0 && personArr.length === 0) {
 	tableCreate(personArr);
 }
 
-addBtn.addEventListener("click", () => {
+form.onsubmit = () => {
 	// Check if input field is empty
 	if (addInfoToObj()) {
 		personArr.push(addInfoToObj());
@@ -131,32 +224,4 @@ addBtn.addEventListener("click", () => {
 			}
 		}
 	}
-});
-
-sortByNameBtn.addEventListener("click", () => {
-	if (personArr.length > 1) {
-		deleteTable(personArr.length);
-		tableCreate(sortArr(personArr, "name"));
-	}
-});
-
-sortBySurNameBtn.addEventListener("click", () => {
-	if (personArr.length > 1) {
-		deleteTable(personArr.length);
-		tableCreate(sortArr(personArr, "surname"));
-	}
-});
-
-sortByDateBtn.addEventListener("click", () => {
-	if (personArr.length > 1) {
-		deleteTable(personArr.length);
-		tableCreate(sortArr(personArr, "dateofbirth"));
-	}
-});
-
-sortByWeightBtn.addEventListener("click", () => {
-	if (personArr.length > 1) {
-		deleteTable(personArr.length);
-		tableCreate(sortArr(personArr, "weight"));
-	}
-});
+};

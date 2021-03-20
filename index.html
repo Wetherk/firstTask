@@ -12,13 +12,22 @@
 			<h1>List</h1>
 		</div>
 		<div class="input_container">
-			<form class="input_container" action="">
-				<input required id="name_input" type="text" placeholder="Your Name" />
+			<form id="form" class="input_container" action="">
+				<input
+					required
+					id="name_input"
+					type="text"
+					placeholder="Your Name"
+					pattern="[A-Za-z]{1,100}"
+					title="Only Letters Allowed"
+				/>
 				<input
 					required
 					id="surname_input"
 					type="text"
 					placeholder="Your Surname"
+					pattern="[A-Za-z]{1,100}"
+					title="Only Letters Allowed"
 				/>
 				<input
 					required
@@ -30,35 +39,17 @@
 					required
 					id="weight_input"
 					type="number"
+					pattern="{1,150}"
 					placeholder="Your Weight"
 				/>
-				<button required id="add_btn" class="add_btn">
+				<button type="submit" id="add_btn" class="add_btn">
 					Add
 				</button>
 			</form>
 		</div>
-		<div class="table_container">
-			<h2>Added People:</h2>
-			<table id="info_table">
-				<tr>
-					<th>
-						FirstName
-						<button id="name_sort" class="sort_btn">Sort</button>
-					</th>
-					<th>
-						LastName
-						<button id="surname_sort" class="sort_btn">Sort</button>
-					</th>
-					<th>
-						Date of birth
-						<button id="date_sort" class="sort_btn">Sort</button>
-					</th>
-					<th>
-						Weight
-						<button id="weight_sort" class="sort_btn">Sort</button>
-					</th>
-				</tr>
-			</table>
+		<div id="table_container" class="table_container">
+			<div id="header_div"></div>
+			<table id="info_table"></table>
 		</div>
 		<script src="/script.js"></script>
 	</body>

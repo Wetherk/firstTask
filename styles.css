@@ -1,42 +1,46 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 /* text style */
 h1,
 h2 {
-  text-align: center;
-  margin: 1rem 0;
+	text-align: center;
+	margin: 1rem 0;
 }
 
 /* input field style */
 .input_container {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 input {
-  margin: 10px;
+	margin: 10px;
 }
 .add_btn {
-  width: 70px;
-  height: 30px;
-  align-self: center;
+	width: 70px;
+	height: 30px;
+	align-self: center;
 }
 
 /* table */
-th {
-  padding: 20px;
+th,
+td {
+	text-align: center;
+	padding: 20px;
 }
-table {
-  display: flex;
-  justify-content: center;
+.table_container {
+	display: flex;
+	flex-direction: column;
 }
 tr {
-  text-align: center;
+	text-align: center;
 }
-
+#info_table {
+	padding: 20px;
+}
 .delete_btn {
-  padding: 5px 10px;
-  font-size: 15px;
+	padding: 5px 10px;
+	font-size: 15px;
 }
