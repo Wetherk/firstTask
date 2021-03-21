@@ -9,44 +9,42 @@
 	</head>
 	<body>
 		<div class="header">
-			<h1>List</h1>
+			<h1>Enter your information</h1>
 		</div>
-		<div class="input_container">
-			<form id="form" class="input_container" action="">
-				<input
-					required
-					id="name_input"
-					type="text"
-					placeholder="Your Name"
-					pattern="[A-Za-z]{1,100}"
-					title="Only Letters Allowed"
-				/>
-				<input
-					required
-					id="surname_input"
-					type="text"
-					placeholder="Your Surname"
-					pattern="[A-Za-z]{1,100}"
-					title="Only Letters Allowed"
-				/>
-				<input
-					required
-					id="date_input"
-					type="date"
-					placeholder="Your Date of Birth"
-				/>
-				<input
-					required
-					id="weight_input"
-					type="number"
-					pattern="{1,150}"
-					placeholder="Your Weight"
-				/>
-				<button type="submit" id="add_btn" class="add_btn">
-					Add
-				</button>
-			</form>
-		</div>
+		<form id="form" class="input_container" action="">
+			<input
+				required
+				id="name_input"
+				type="text"
+				placeholder="Your Name"
+				pattern="[A-Za-z]{1,100}"
+				title="Only Letters Allowed"
+			/>
+			<input
+				required
+				id="surname_input"
+				type="text"
+				placeholder="Your Surname"
+				pattern="[A-Za-z]{1,100}"
+				title="Only Letters Allowed"
+			/>
+			<input
+				required
+				id="date_input"
+				type="date"
+				placeholder="Your Date of Birth"
+			/>
+			<input
+				required
+				id="weight_input"
+				type="number"
+				pattern="{1,150}"
+				placeholder="Your Weight"
+			/>
+			<button type="submit" id="add_btn" class="add_btn">
+				Add
+			</button>
+		</form>
 		<div id="table_container" class="table_container">
 			<div id="header_div"></div>
 			<table id="info_table"></table>
