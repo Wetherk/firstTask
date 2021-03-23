@@ -1,5 +1,7 @@
 const addBtn = document.getElementById("add_btn");
 const form = document.getElementById("form");
+
+// technical variables
 let personArr = [];
 let defaultArr = [];
 let sortPropCheck = 0;
@@ -12,6 +14,17 @@ function addInfoToObj() {
 	const dateInput = document.getElementById("date_input").value;
 	const weightInput = document.getElementById("weight_input").value;
 	let personObj = {};
+
+	for (let i = 0; i < personArr.length; i++) {
+		if (
+			personArr[i].name === nameInput &&
+			personArr[i].surname === surNameInput &&
+			personArr[i].dateofbirth === dateInput &&
+			personArr[i].weight === weightInput
+		) {
+			return "error";
+		}
+	}
 
 	if (nameInput && surNameInput && dateInput && weightInput) {
 		personObj.name = nameInput;
@@ -110,14 +123,17 @@ function tableCreate(arr) {
 	});
 	for (let i = 0; i < arr.length; i++) {
 		let row = infoBox.insertRow(i + 1);
+
 		let cell1 = row.insertCell(0);
 		let cell2 = row.insertCell(1);
 		let cell3 = row.insertCell(2);
 		let cell4 = row.insertCell(3);
+
 		cell1.innerHTML = arr[i].name;
 		cell2.innerHTML = arr[i].surname;
 		cell3.innerHTML = arr[i].dateofbirth;
 		cell4.innerHTML = arr[i].weight;
+
 		// Delete btn
 		let btn = document.createElement("button");
 		btn.innerHTML = "x";
@@ -134,9 +150,8 @@ function deletingRow(r) {
 	const table = document.getElementById("info_table");
 	let i = r.parentNode.rowIndex;
 	table.deleteRow(i);
-	// personArr = personArr.reverse();
 	personArr.splice([i - 1], 1);
-	// personArr = personArr.reverse();
+
 	defaultArr = [...personArr];
 	localStorage.clear();
 	localStorageAdd(personArr);
@@ -163,15 +178,12 @@ function sortArr(arr, prop) {
 	if (prop != sortPropCheck) sortStatus = 0;
 
 	if (arr.length > 1 && sortStatus != "sorted1" && sortStatus != "sorted2") {
-		if (prop === "weight") {
-			arr.sort((a, b) => (parseInt(a[prop]) > parseInt(b[prop]) ? 1 : -1));
-			sortStatus = "sorted1";
-			sortPropCheck = prop;
-			return arr;
-		}
 		arr.sort((a, b) => (a[prop] > b[prop] ? 1 : -1));
 		sortStatus = "sorted1";
 		sortPropCheck = prop;
+		if (prop == "weight" || prop == "date") {
+			arr.reverse();
+		}
 		return arr;
 	}
 
@@ -209,19 +221,28 @@ if (localStorage.length > 0 && personArr.length === 0) {
 	tableCreate(personArr);
 }
 
-form.onsubmit = () => {
-	// Check if input field is empty
-	if (addInfoToObj()) {
-		personArr.push(addInfoToObj());
+form.onsubmit = (event) => {
+	if (addInfoToObj() === "error") {
+		const errorDiv = document.getElementById("error");
+		const error = document.createElement("p");
+		const errorText = document.createTextNode("Person Already exists!!!");
+
+		error.classList.add("error_style");
+		error.appendChild(errorText);
+		errorDiv.appendChild(error);
+
+		event.preventDefault();
+		return 0;
+	}
+	personArr.push(addInfoToObj());
+	if (personArr.length > 0) {
+		if (personArr.length > 1) deleteTable(personArr.length - 1);
+		check(personArr);
+		defaultArr = [...personArr];
+		localStorage.clear();
+		localStorageAdd(personArr);
 		if (personArr.length > 0) {
-			if (personArr.length > 1) deleteTable(personArr.length - 1);
-			check(personArr);
-			defaultArr = [...personArr];
-			localStorage.clear();
-			localStorageAdd(personArr);
-			if (personArr.length > 0) {
-				tableCreate(personArr);
-			}
+			tableCreate(personArr);
 		}
 	}
 };

@@ -35,7 +35,6 @@ td {
 	text-align: center;
 	padding: 20px;
 }
-
 .table_container {
 	display: flex;
 	flex-direction: column;
@@ -49,4 +48,12 @@ tr {
 .delete_btn {
 	padding: 5px 10px;
 	font-size: 15px;
+}
+.error_style {
+	margin: 1rem;
+	color: red;
+	font-size: 13px;
+	text-align: center;
+	border: 2px solid red;
+	padding: 10px;
 }
