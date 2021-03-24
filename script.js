@@ -227,9 +227,11 @@ form.onsubmit = (event) => {
 		const error = document.createElement("p");
 		const errorText = document.createTextNode("Person Already exists!!!");
 
-		error.classList.add("error_style");
-		error.appendChild(errorText);
-		errorDiv.appendChild(error);
+		if (!errorDiv.hasChildNodes()) {
+			error.classList.add("error_style");
+			error.appendChild(errorText);
+			errorDiv.appendChild(error);
+		}
 
 		event.preventDefault();
 		return 0;
