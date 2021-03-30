@@ -177,7 +177,11 @@ function check(arr) {
 function sortArr(arr, prop) {
 	if (prop != sortPropCheck) sortStatus = 0;
 
-	if (arr.length > 1 && sortStatus != "sorted1" && sortStatus != "sorted2") {
+	if (
+		arr.length > 1 &&
+		sortStatus != "sorted1" &&
+		sortStatus != "sorted2"
+	) {
 		arr.sort((a, b) => (a[prop] > b[prop] ? 1 : -1));
 		sortStatus = "sorted1";
 		sortPropCheck = prop;
@@ -225,7 +229,9 @@ form.onsubmit = (event) => {
 	if (addInfoToObj() === "error") {
 		const errorDiv = document.getElementById("error");
 		const error = document.createElement("p");
-		const errorText = document.createTextNode("Person Already exists!!!");
+		const errorText = document.createTextNode(
+			"Person Already exists!!!"
+		);
 
 		if (!errorDiv.hasChildNodes()) {
 			error.classList.add("error_style");
